@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleos del Llano - Red Profesional</title>
+    <link rel="stylesheet" href="Principal.css">
+    <style>
+     
+       
+    </style>
+</head>
+
+<body>
+
+    <nav class="barra-nav">
+        <div class="contenedor-nav">
+            <div class="nav-seccion">
+                <div class="logo">Empleos del Llano</div>
+            </div>
+
+            <div class="nav-seccion">
+                <a href="#" class="nav-elemento activo">
+                    <svg class="icono" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                    <span>Inicio</span>
+                </a>
+                <button id="btnAsistente" class="nav-elemento"
+                    style="background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px; color: #666;">
+                    <svg class="icono" width="20" height="20" viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z">
+                        </path>
+                    </svg>
+                    <span>🤖 Asistente</span>
+                </button>
+                <a href="#" class="nav-elemento" onclick="abrirModalPerfil(); return false;">
+                    <svg class="icono" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Mi Perfil</span>
+                </a>
+                <a href="#" class="nav-elemento" onclick="cerrarSesion(); return false;">
+                    <svg class="icono" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Salir</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="contenedor-principal">
+        <!-- BARRA LATERAL IZQUIERDA - PERFIL -->
+        <aside class="barra-lateral">
+            <div class="tarjeta tarjeta-perfil">
+                <div class="perfil-banner"></div>
+                <div class="perfil-info">
+                    <div class="perfil-avatar"></div>
+                    <h3 class="perfil-nombre">Tu Nombre</h3>
+                    <p class="perfil-titulo">Completa tu perfil</p>
+                </div>
+                <div class="tarjeta-seccion">
+                    <p class="perfil-info-completa incompleto" id="estadoPerfil">
+                        ⚠️ Perfil incompleto - Completa tu información para aplicar
+                    </p>
+                </div>
+                <button class="btn-perfil" id="btnEditarPerfil"> Editar Perfil</button>
+                <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+            </div>
+
+            <div class="tarjeta">
+                <h3 class="titulo-tarjeta">Información</h3>
+                <p style="font-size: 14px; color: #666;">
+                    Encuentra empleos en el sector agropecuario, ganadería, agricultura, ecoturismo y conservación del
+                    Llano.
+                </p>
+            </div>
+        </aside>
+
+        <main class="feed-principal">
+      
+            <div class="tarjeta seccion-busqueda">
+                <input type="text" id="busquedaOferta" placeholder="Buscar por título, empresa...">
+                <select id="filtroSector">
+                    <option value="">Todos los sectores</option>
+                </select>
+                <button id="btnBuscar">🔍 Buscar</button>
+            </div>
+
+            <div id="gridOfertas">
+                <p style="text-align: center; padding: 40px;">Cargando ofertas...</p>
+            </div>
+        </main>
+
+      
+        <aside class="barra-lateral">
+            <div class="tarjeta">
+                <h3 class="titulo-tarjeta">Sectores Disponibles</h3>
+                <div style="font-size: 14px; line-height: 2;">
+                    <p>🐄 Ganadería</p>
+                    <p>🌾 Agricultura</p>
+                    <p>🌿 Ecoturismo</p>
+                    <p>♻️ Conservación</p>
+                    <p>🐟 Acuicultura</p>
+                    <p>📚 Educación Ambiental</p>
+                </div>
+            </div>
+
+            <footer class="pie-pagina-lateral">
+                <div class="enlaces-pie">
+                    <a href="#">Información</a><a href="#">Privacidad</a><a href="#">Ayuda</a>
+                </div>
+                <div class="copyright-pie">
+                    <span class="logo-pie">Empleos del Llano</span>
+                    <span>© 2025</span>
+                </div>
+            </footer>
+        </aside>
+    </div>
+
+   
+    <div id="modalPerfil" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar" onclick="cerrarModalPerfil()">&times;</span>
+            <h2>Completar Perfil</h2>
+            <p style="color: #666; font-size: 14px;">Completa tu información para poder aplicar a las ofertas</p>
+
+            <form onsubmit="event.preventDefault(); guardarPerfil();">
+                <div class="form-group">
+                    <label for="tipoPublicacionPerfil">Especialidad / Área de interés:</label>
+                    <select id="tipoPublicacionPerfil" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="Ganadero">Ganadero</option>
+                        <option value="Agricultor">Agricultor</option>
+                        <option value="Ecoturista">Profesional de Ecoturismo</option>
+                        <option value="Conservacionista">Conservacionista</option>
+                        <option value="Acuicultor">Acuicultor</option>
+                        <option value="Educador Ambiental">Educador Ambiental</option>
+                        <option value="Técnico">Técnico</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tituloOfertaPerfil">Puesto que buscas / Profesión:</label>
+                    <input type="text" id="tituloOfertaPerfil" placeholder="Ej: Veterinario Ganadero" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcionPerfil">Cuéntanos sobre ti (experiencia, habilidades):</label>
+                    <textarea id="descripcionPerfil"
+                        placeholder="Describe tu experiencia, habilidades y lo que buscas en un empleo..."
+                        required></textarea>
+                </div>
+
+                <div class="modal-acciones">
+                    <button type="submit" class="btn-principal">Guardar Cambios</button>
+                    <button type="button" class="btn-secundario" onclick="cerrarModalPerfil()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+  
+    <div id="modalAplicar" class="modal">
+        <div class="modal-contenido">
+          
+        </div>
+    </div>
+
+   
+    <div id="modalAsistente">
+        <div class="modal-asistente-header">
+            <h3>🤖 Asistente IA</h3>
+            <button class="cerrar-chat" onclick="cerrarChatAsistente()">&times;</button>
+        </div>
+        <div id="chatAsistenteArea">
+            <p style="text-align: center; color: #999;">Cargando asistente...</p>
+        </div>
+        <div class="input-asistente-container">
+            <input type="text" id="inputAsistente" placeholder="Pregunta sobre empleos..."
+                onkeypress="if(event.key==='Enter') enviarMensajeAsistente();">
+            <button id="btnEnviarMensaje" onclick="enviarMensajeAsistente()">➤</button>
+        </div>
+    </div>
+
+    <script src="AsistenteIA.js"></script>
+    <script src="Principal.js"></script>
+</body>
+
+</html>
